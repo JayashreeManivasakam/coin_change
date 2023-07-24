@@ -1,22 +1,21 @@
-def coin(lst, amount):
-    if amount == 0:
-        return 0
-    if len(lst) == 1 and amount % lst[0] != 0:
-        return -1
-    if amount in lst:
-        return 1
-    lst.sort(reverse = True)
-    for i in range(0, len(lst)):
-        coin = lst[i] 
-        c = 1
-        while(coin < amount):
-            coin *= 2
-            if coin == amount:
-                return c + 1
-            c += 1
-            if amount - coin in lst:
-                return c + 1
-
 lst=list(map(int,input().split()))
-amount=int(input())
-print(coin(lst,amount))
+def house(lst):
+    m=0
+    n=0
+    if len(lst)<2:
+        return(lst[0])
+    if len(lst)==2:
+        return(max(lst))
+    if len(lst)==3:
+        m=lst[0]+lst[2]
+        n=lst[2]
+        return(m if m>n else n)
+    for i in range(0,len(lst)//2-1):
+        if(len(lst)%2==0):
+            m=lst[i]+lst[i+2]+m
+            n=lst[i+1]+lst[i+3]+n
+        if(len(lst)%2!=0):
+            m=lst[i]+lst[i+2]+lst[i+4]+m
+            n=lst[i+1]+lst[i+3]+n
+    return(m if m>n else n)
+print(house(lst))
